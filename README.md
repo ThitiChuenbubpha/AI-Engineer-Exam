@@ -18,9 +18,9 @@ You are provided with the following data sources:
 ### 💰 Loan Data (NEW)
 | File/Folder | Description |
 |-------------|-------------|
-| `/Loan_data/train.csv` | Training dataset (~43MB) with historical loan records including default labels |
-| `/Loan_data/test.csv` | Test dataset (~20MB) for prediction (no default labels) |
-| `/Loan_data/loan_database.sqlite` | Normalized SQLite database (~118MB) with properly structured schema |
+| `/Loan_data/train.csv` | Training dataset with historical loan records including default labels |
+| `/Loan_data/test.csv` | Test dataset for prediction (no default labels) |
+| `/Loan_data/loan_database.sqlite` | Normalized SQLite database with properly structured schema |
 | `/Loan_data/db_schema.md` | Complete database schema documentation with ER diagram |
 | `/Loan_data/Data Dictionary.xlsx` | Data dictionary explaining all variables |
 
@@ -33,8 +33,6 @@ loans (main) ─┬─ credit_scores (bureau score)
               └─ lookup tables (states, branches, suppliers, manufacturers, risk_categories)
 ```
 
-> [!TIP]
-> Use `loan_database.sqlite` for SQL-based analysis or raw CSV files for direct data manipulation.
 
 ---
 
@@ -54,7 +52,7 @@ Develop **at least TWO AI systems** that leverage the provided data:
 - ✅ Choose **any combination** of provided datasets
 - ✅ Use **any technology stack** (Python, JavaScript, Rust, LangChain, LlamaIndex, Scikit-learn, PyTorch, etc.)
 
-> [!IMPORTANT]
+> [!NOTE]
 > You are **not required** to use all provided data. Select datasets relevant to your proposed solutions.
 
 ---
@@ -63,18 +61,18 @@ Develop **at least TWO AI systems** that leverage the provided data:
 
 Submit a **comprehensive report** (PDF) for all projects containing:
 
-### 1. 💡 Idea & Concept
+### 1. Idea & Concept
 - Problem statement and context
 - Value proposition and business impact
 - Target users and use cases
 
-### 2. 🏗️ System Design
+### 2.  System Design
 - Architecture diagram (data flow, components)
 - Technology stack justification
 - Model/algorithm selection rationale
 - Data preprocessing and feature engineering approach
 
-### 3. 📊 Results & Demonstration
+### 3.  Results & Demonstration
 - Model performance metrics (accuracy, F1, AUC, etc.)
 - Sample outputs, predictions, or generated content
 - Screenshots or video demonstrations

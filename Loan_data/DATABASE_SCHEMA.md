@@ -22,7 +22,6 @@ erDiagram
     loans }o--|| branches : belongs_to
     loans }o--|| suppliers : belongs_to
     loans }o--|| manufacturers : belongs_to
-    credit_scores }o--|| risk_categories : categorized_as
 
     loans {
         INTEGER unique_id PK
@@ -35,36 +34,82 @@ erDiagram
         INTEGER supplier_id FK
         INTEGER manufacturer_id FK
         INTEGER state_id FK
+        INTEGER current_pincode_id
+        TEXT date_of_birth
         TEXT employment_type
         TEXT disbursal_date
+        INTEGER employee_code_id
+        INTEGER mobileno_avl_flag
+        INTEGER aadhar_flag
+        INTEGER pan_flag
+        INTEGER voterid_flag
+        INTEGER driving_flag
+        INTEGER passport_flag
     }
 
     credit_scores {
-        INTEGER unique_id PK_FK
+        INTEGER unique_id PK
         INTEGER perform_cns_score
         TEXT perform_cns_score_description
     }
 
     primary_accounts {
-        INTEGER unique_id PK_FK
+        INTEGER unique_id PK
         INTEGER pri_no_of_accts
         INTEGER pri_active_accts
         INTEGER pri_overdue_accts
         REAL pri_current_balance
+        REAL pri_sanctioned_amount
+        REAL pri_disbursed_amount
+        REAL primary_instal_amt
     }
 
     secondary_accounts {
-        INTEGER unique_id PK_FK
+        INTEGER unique_id PK
         INTEGER sec_no_of_accts
         INTEGER sec_active_accts
         INTEGER sec_overdue_accts
+        REAL sec_current_balance
+        REAL sec_sanctioned_amount
+        REAL sec_disbursed_amount
+        REAL sec_instal_amt
     }
 
     account_history {
-        INTEGER unique_id PK_FK
+        INTEGER unique_id PK
         INTEGER new_accts_in_last_six_months
+        INTEGER delinquent_accts_in_last_six_months
         TEXT average_acct_age
         TEXT credit_history_length
+        INTEGER no_of_inquiries
+    }
+
+    states {
+        INTEGER state_id PK
+        TEXT state_name
+    }
+
+    branches {
+        INTEGER branch_id PK
+    }
+
+    suppliers {
+        INTEGER supplier_id PK
+    }
+
+    manufacturers {
+        INTEGER manufacturer_id PK
+    }
+
+    risk_categories {
+        INTEGER id PK
+        TEXT score_description
+        TEXT risk_level
+    }
+
+    employment_types {
+        INTEGER id PK
+        TEXT employment_type
     }
 ```
 
@@ -106,9 +151,9 @@ erDiagram
 
 | Column | Type | PK | FK | Description |
 |--------|------|:--:|:--:|-------------|
-| `unique_id` | INTEGER | ✅ | ✅ | รหัสลูกค้า → `loans.unique_id` |
+| `unique_id` | INTEGER | ✅ | → `loans.unique_id` | รหัสลูกค้า |
 | `perform_cns_score` | INTEGER | | | คะแนน Bureau Score |
-| `perform_cns_score_description` | TEXT | | | คำอธิบายคะแนน |
+| `perform_cns_score_description` | TEXT | | | คำอธิบายคะแนน (ใช้ JOIN กับ `risk_categories.score_description` ใน View) |
 
 ---
 
@@ -117,7 +162,7 @@ erDiagram
 
 | Column | Type | PK | FK | Description |
 |--------|------|:--:|:--:|-------------|
-| `unique_id` | INTEGER | ✅ | ✅ | รหัสลูกค้า → `loans.unique_id` |
+| `unique_id` | INTEGER | ✅ | → `loans.unique_id` | รหัสลูกค้า |
 | `pri_no_of_accts` | INTEGER | | | จำนวนบัญชีทั้งหมด |
 | `pri_active_accts` | INTEGER | | | จำนวนบัญชีที่ active |
 | `pri_overdue_accts` | INTEGER | | | จำนวนบัญชีที่ค้างชำระ |
@@ -133,7 +178,7 @@ erDiagram
 
 | Column | Type | PK | FK | Description |
 |--------|------|:--:|:--:|-------------|
-| `unique_id` | INTEGER | ✅ | ✅ | รหัสลูกค้า → `loans.unique_id` |
+| `unique_id` | INTEGER | ✅ | → `loans.unique_id` | รหัสลูกค้า |
 | `sec_no_of_accts` | INTEGER | | | จำนวนบัญชีทั้งหมด |
 | `sec_active_accts` | INTEGER | | | จำนวนบัญชีที่ active |
 | `sec_overdue_accts` | INTEGER | | | จำนวนบัญชีที่ค้างชำระ |
@@ -149,7 +194,7 @@ erDiagram
 
 | Column | Type | PK | FK | Description |
 |--------|------|:--:|:--:|-------------|
-| `unique_id` | INTEGER | ✅ | ✅ | รหัสลูกค้า → `loans.unique_id` |
+| `unique_id` | INTEGER | ✅ | → `loans.unique_id` | รหัสลูกค้า |
 | `new_accts_in_last_six_months` | INTEGER | | | บัญชีใหม่ใน 6 เดือน |
 | `delinquent_accts_in_last_six_months` | INTEGER | | | บัญชีที่ผิดนัดใน 6 เดือน |
 | `average_acct_age` | TEXT | | | อายุบัญชีเฉลี่ย |
